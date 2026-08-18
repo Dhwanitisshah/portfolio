@@ -78,6 +78,24 @@
       animation-duration: 0.01ms !important;
       animation-iteration-count: 1 !important;
       transition-duration: 0.01ms !important;
+      transition-delay: 0.01ms !important;
     }
+  }
+}
+
+@layer components {
+  /* Scroll reveal. `is-visible` is added by IntersectionObserver in
+     `Projects.tsx`; the no-JS fallback lives in `_document.tsx`. */
+  .reveal {
+    opacity: 0;
+    transform: translateY(16px);
+    transition:
+      opacity 500ms ease-out,
+      transform 500ms ease-out;
+  }
+
+  .reveal.is-visible {
+    opacity: 1;
+    transform: none;
   }
 }

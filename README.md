@@ -38,8 +38,8 @@ Open http://localhost:3000.
 ## Project structure
 
 ```
-components/     Reusable UI (Header, Footer, Button)
-lib/            constants.ts (tokens, metadata, nav), fonts.ts, utils.ts
+components/     Reusable UI (Header, Footer, Button, Hero, Projects, ProjectCard)
+lib/            constants.ts (tokens, metadata, nav), projects.ts, fonts.ts, utils.ts
 pages/          Routes (Pages Router); _app.tsx holds the global chrome
 public/assets/  Images and downloadable files
 styles/         globals.css — base styles only
@@ -67,6 +67,9 @@ Defined in `tailwind.config.ts` and mirrored in `lib/constants.ts`.
 | Accent secondary (warm brown) | `#8B7355` | `clay` |
 | Accent secondary, hover | `#725E46` | `clay-dark` |
 
+Project status pills use conventional state colours defined locally in
+`ProjectCard.tsx`, outside the sage/clay system.
+
 Each accent also carries `-light` and `-tint` steps for badges and washes.
 
 ### Fonts
@@ -84,8 +87,12 @@ glows.
 
 ### Motion
 
-None. Only 150ms colour transitions on interactive elements, and all transitions
-collapse under `prefers-reduced-motion: reduce`.
+Deliberately minimal: 150ms colour transitions on interactive elements, and a
+one-way scroll reveal on the project cards (fade + 16px rise, 100ms stagger)
+driven by `IntersectionObserver`. Everything collapses under
+`prefers-reduced-motion: reduce`; the `.reveal` class is unhidden by a
+`<noscript>` rule in `_document.tsx` so the cards are never invisible without
+JS.
 
 ## Deployment
 
@@ -98,14 +105,11 @@ Set `NEXT_PUBLIC_SITE_URL` to the production origin so `SITE.url` is correct.
 
 - [x] **Phase 0** — Foundation: theme, tokens, Header/Footer/Button, placeholder page
 - [x] **Phase 1** — Hero landing
-- [ ] **Phase 2** — Projects
+- [x] **Phase 2** — Projects
 - [ ] **Phase 3** — Skills
 - [ ] **Phase 4** — Contact
 
 ## TODO
 
-- Add `public/assets/resume.pdf` — the hero's **Download Resume** button
-  points at `/assets/resume.pdf` (see `RESUME_URL` in `lib/constants.ts`) and
-  404s until the file is in place.
 - Nav items point at on-page sections (`/#about`, …) that later phases add. If
   those become standalone routes instead, only the `href` values change.

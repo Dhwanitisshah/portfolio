@@ -1,6 +1,7 @@
 import Head from "next/head";
 
 import Hero from "@/components/Hero";
+import Projects from "@/components/Projects";
 import { SITE } from "@/lib/constants";
 
 export default function Home() {
@@ -13,14 +14,12 @@ export default function Home() {
 
       <Hero />
 
-      {/* Separates the hero from whatever section lands next. */}
+      {/* Separates the hero from the sections below. */}
       <div className="mx-auto max-w-content px-5 sm:px-8">
         <hr className="border-t border-border" />
       </div>
 
-      {/* Scroll target for the hero's "View Projects"; the grid arrives in
-          Phase 2. `scroll-mt-16` clears the sticky header. */}
-      <div id="projects" className="scroll-mt-16" />
+      <Projects />
     </>
   );
 }

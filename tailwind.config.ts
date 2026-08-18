@@ -61,6 +61,8 @@ const config: Config = {
         card: "0 1px 3px 0 rgb(26 26 26 / 0.06), 0 1px 2px -1px rgb(26 26 26 / 0.04)",
         elevated:
           "0 8px 24px -8px rgb(26 26 26 / 0.12), 0 2px 6px -2px rgb(26 26 26 / 0.06)",
+        /** Card hover lift. */
+        lift: "0 4px 12px rgb(0 0 0 / 0.08)",
       },
       maxWidth: {
         content: "72rem",

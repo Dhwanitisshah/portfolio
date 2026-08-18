@@ -71,8 +71,10 @@ export const SITE = {
 export const SOCIAL_LINKS = [
   { label: "Email", href: `mailto:${SITE.email}` },
   { label: "GitHub", href: "https://github.com/Dhwanitisshah" },
-  // TODO: replace with the real LinkedIn profile URL.
-  { label: "LinkedIn", href: "https://www.linkedin.com/in/dhwanit-shah/" },
+  {
+    label: "LinkedIn",
+    href: "https://linkedin.com/in/dhwanit-shah-11b781291/",
+  },
 ] as const;
 
 /**

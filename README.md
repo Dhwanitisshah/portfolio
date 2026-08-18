@@ -104,7 +104,5 @@ Set `NEXT_PUBLIC_SITE_URL` to the production origin so `SITE.url` is correct.
 
 ## TODO
 
-- `SOCIAL_LINKS` in `lib/constants.ts` has a placeholder LinkedIn URL — replace
-  it with the real profile.
 - Nav items point at on-page sections (`/#about`, …) that later phases add. If
   those become standalone routes instead, only the `href` values change.

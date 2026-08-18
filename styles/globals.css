@@ -1,0 +1,83 @@
+@import "tailwindcss";
+
+/* Design tokens live in the Tailwind config so they are shared by every
+   utility class; this bridges that file into Tailwind v4. */
+@config "../tailwind.config.ts";
+
+@layer base {
+  :root {
+    color-scheme: light;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    background-color: #f5f8f6;
+    color: #1a1a1a;
+    font-family: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
+  /* Tailwind v4 defaults `border-color` to `currentColor`; restore a
+     neutral hairline so bare `border` utilities read as intended. */
+  *,
+  ::after,
+  ::before {
+    border-color: #e0e0e0;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+    letter-spacing: -0.02em;
+    text-wrap: balance;
+  }
+
+  code,
+  kbd,
+  pre,
+  samp {
+    font-family: var(--font-jetbrains-mono), ui-monospace, SFMono-Regular, Menlo,
+      monospace;
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  ::selection {
+    background-color: #e8eee9;
+    color: #1a1a1a;
+  }
+
+  /* Visible only for keyboard users, never on mouse click. */
+  :focus-visible {
+    outline: 2px solid #6b8e73;
+    outline-offset: 2px;
+    border-radius: 2px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+
+    *,
+    ::after,
+    ::before {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}

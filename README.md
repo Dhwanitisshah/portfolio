@@ -1,13 +1,17 @@
-# Dhwanit's Dev Quest
+# Dhwanit Shah — Portfolio
 
-A 90s videogame-themed developer portfolio — CRT scan lines, neon glow, and arcade typography.
+A clean, professional portfolio positioned for startup founders, early-stage
+companies, and freelance clients. Soft and sophisticated: light pastels, calm
+typography, no motion.
 
 ## Stack
 
 - **Next.js 16** (Pages Router) + **React 19**
 - **TypeScript** (strict)
-- **Tailwind CSS v4** — theme defined in `tailwind.config.ts`, bridged via the `@config` directive in `styles/globals.css`
+- **Tailwind CSS v4** — tokens defined in `tailwind.config.ts`, bridged into the
+  stylesheet with the `@config` directive in `styles/globals.css`
 - **ESLint 9** (flat config)
+- Fonts self-hosted at build time via `next/font` — no runtime request to Google
 
 ## Getting started
 
@@ -34,64 +38,73 @@ Open http://localhost:3000.
 ## Project structure
 
 ```
-components/     Reusable React components (Layout, …)
-lib/            Shared constants, helpers, data
-pages/          Routes (Pages Router)
-public/assets/  Images, sprites, fonts, audio
-styles/         globals.css — CRT overlay, glitch keyframes, neon utilities
+components/     Reusable UI (Header, Footer, Button)
+lib/            constants.ts (tokens, metadata, nav), fonts.ts, utils.ts
+pages/          Routes (Pages Router); _app.tsx holds the global chrome
+public/assets/  Images and downloadable files
+styles/         globals.css — base styles only
 ```
+
+`Header` and `Footer` are rendered once in `pages/_app.tsx`, so every page picks
+them up automatically.
 
 ## Design system
 
 ### Colors
 
-| Token | Hex | Tailwind |
+Defined in `tailwind.config.ts` and mirrored in `lib/constants.ts`.
+
+| Role | Hex | Tailwind |
 | --- | --- | --- |
-| Hot Neon Pink | `#FF006E` | `neon-pink` / `primary` |
-| Bright Cyan | `#00D9FF` | `neon-cyan` / `secondary` |
-| Electric Purple | `#9D4EDD` | `neon-purple` / `accent` |
-| Dark Background | `#0A0A0A` | `dark` |
-| Dark Secondary | `#1A1A2E` | `dark-secondary` |
-| Text Primary | `#E8E8E8` | `content-primary` |
-| Text Secondary | `#B0B0B0` | `content-secondary` |
-| Success | `#00FF00` | `success` / `neon-green` |
-| Warning | `#FFD60A` | `warning` / `neon-yellow` |
+| Background | `#F5F8F6` | `background` |
+| Surface | `#FFFFFF` | `surface` |
+| Hover wash | `#F0F4F1` | `hover` |
+| Border | `#E0E0E0` | `border` |
+| Text primary | `#1A1A1A` | `ink` |
+| Text secondary | `#4A4A4A` | `muted` |
+| Accent primary (sage) | `#6B8E73` | `sage` |
+| Accent primary, hover | `#58745E` | `sage-dark` |
+| Accent secondary (warm brown) | `#8B7355` | `clay` |
+| Accent secondary, hover | `#725E46` | `clay-dark` |
+
+Each accent also carries `-light` and `-tint` steps for badges and washes.
 
 ### Fonts
 
 | Role | Family | Tailwind |
 | --- | --- | --- |
-| Headings | Press Start 2P | `font-display` |
-| Body | Courier Prime | `font-sans`, `font-mono` |
-| Code | JetBrains Mono | `font-code` |
+| Headings | Inter | `font-heading` |
+| Body | Inter | `font-sans` |
+| Monospace | JetBrains Mono | `font-mono` |
 
-Loaded from Google Fonts at the top of `styles/globals.css`.
+### Shadows
 
-### CSS utilities
+`shadow-subtle`, `shadow-card`, `shadow-elevated` — soft neutral elevation, no
+glows.
 
-- `.crt-overlay` / `.crt-sweep` — fixed CRT scan lines, flicker, vignette, and sweep band. Rendered once in `Layout.tsx`; `pointer-events: none`, `z-index: 9998–9999`.
-- `.glitch-text` — chromatic-aberration glitch. Requires a matching `data-text` attribute.
-- `.neon-pink`, `.neon-cyan`, `.neon-purple`, `.neon-green` — neon text glow.
-- `.retro-grid` — synthwave grid background.
-- Animations: `animate-glitch`, `animate-glitch-fast`, `animate-flicker`, `animate-scanline`, `animate-neon-pulse`, `animate-blink`.
-- Shadows: `shadow-neon-pink`, `shadow-neon-cyan`, `shadow-neon-purple`.
+### Motion
 
-All animations collapse under `prefers-reduced-motion: reduce`.
+None. Only 150ms colour transitions on interactive elements, and all transitions
+collapse under `prefers-reduced-motion: reduce`.
 
 ## Deployment
 
-Zero-config on Vercel — push the repo and import it. For any Node host: `npm run build && npm start` (respects `PORT`). Requires Node >= 20.
+Zero-config on Vercel — push the repo and import it. For any Node host:
+`npm run build && npm start` (respects `PORT`). Requires Node >= 20.9.
+
+Set `NEXT_PUBLIC_SITE_URL` to the production origin so `SITE.url` is correct.
 
 ## Roadmap
 
-- [x] **Phase 0** — Foundation: theme, CRT/glitch effects, layout, placeholder hero
-- [x] **Phase 1** — Hero landing, stat badges, CTAs, animated starfield, page stubs
-- [ ] **Phase 2** — Projects ("Quests")
-- [ ] **Phase 3** — Skills tree
+- [x] **Phase 0** — Foundation: theme, tokens, Header/Footer/Button, placeholder page
+- [ ] **Phase 1** — Hero landing
+- [ ] **Phase 2** — Projects
+- [ ] **Phase 3** — Skills
 - [ ] **Phase 4** — Contact
 
 ## TODO
 
-- Add `public/assets/resume.pdf` — the hero's **VIEW RESUME** button points at
-  `/assets/resume.pdf` (see `RESUME_URL` in `lib/constants.ts`) and 404s until
-  the file is in place.
+- `SOCIAL_LINKS` in `lib/constants.ts` has a placeholder LinkedIn URL — replace
+  it with the real profile.
+- Nav items point at on-page sections (`/#about`, …) that later phases add. If
+  those become standalone routes instead, only the `href` values change.

@@ -28,7 +28,7 @@ const config: Config = {
         /** Accent primary — links, hovers, active states. */
         sage: {
           DEFAULT: "#6B8E73",
-          dark: "#58745E",
+          dark: "#5A7A62",
           light: "#B5C7B9",
           tint: "#E8EEE9",
         },

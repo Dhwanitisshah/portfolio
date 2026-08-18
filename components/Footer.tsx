@@ -1,10 +1,15 @@
+import Link from "next/link";
+
 import { SITE, SOCIAL_LINKS } from "@/lib/constants";
 
 export default function Footer() {
   const year = new Date().getFullYear();
 
   return (
-    <footer className="border-t border-border bg-background">
+    <footer
+      id="contact"
+      className="scroll-mt-16 border-t border-border bg-background"
+    >
       <div className="mx-auto flex max-w-content flex-col gap-4 px-5 py-10 sm:flex-row sm:items-center sm:justify-between sm:px-8">
         <p className="text-sm text-muted">
           &copy; {year} {SITE.name}
@@ -12,6 +17,14 @@ export default function Footer() {
 
         <nav aria-label="Elsewhere">
           <ul className="flex flex-wrap items-center gap-x-6 gap-y-2">
+            <li>
+              <Link
+                href="/contact"
+                className="text-sm text-muted transition-colors duration-150 hover:text-sage"
+              >
+                Contact
+              </Link>
+            </li>
             {SOCIAL_LINKS.map((link) => {
               const external = link.href.toLowerCase().startsWith("http");
 

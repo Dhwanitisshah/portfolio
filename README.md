@@ -63,7 +63,7 @@ Defined in `tailwind.config.ts` and mirrored in `lib/constants.ts`.
 | Text primary | `#1A1A1A` | `ink` |
 | Text secondary | `#4A4A4A` | `muted` |
 | Accent primary (sage) | `#6B8E73` | `sage` |
-| Accent primary, hover | `#58745E` | `sage-dark` |
+| Accent primary, hover | `#5A7A62` | `sage-dark` |
 | Accent secondary (warm brown) | `#8B7355` | `clay` |
 | Accent secondary, hover | `#725E46` | `clay-dark` |
 
@@ -97,12 +97,15 @@ Set `NEXT_PUBLIC_SITE_URL` to the production origin so `SITE.url` is correct.
 ## Roadmap
 
 - [x] **Phase 0** — Foundation: theme, tokens, Header/Footer/Button, placeholder page
-- [ ] **Phase 1** — Hero landing
+- [x] **Phase 1** — Hero landing
 - [ ] **Phase 2** — Projects
 - [ ] **Phase 3** — Skills
 - [ ] **Phase 4** — Contact
 
 ## TODO
 
+- Add `public/assets/resume.pdf` — the hero's **Download Resume** button
+  points at `/assets/resume.pdf` (see `RESUME_URL` in `lib/constants.ts`) and
+  404s until the file is in place.
 - Nav items point at on-page sections (`/#about`, …) that later phases add. If
   those become standalone routes instead, only the `href` values change.

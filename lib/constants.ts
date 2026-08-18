@@ -22,7 +22,7 @@ export const COLORS = {
   /** Sage green — links, hovers, accents. */
   accentPrimary: "#6B8E73",
   /** Sage green, deepened for hover/active. */
-  accentPrimaryDark: "#58745E",
+  accentPrimaryDark: "#5A7A62",
   /** Warm brown — badges, details. */
   accentSecondary: "#8B7355",
   /** Warm brown, deepened for hover/active. */
@@ -90,3 +90,6 @@ export const NAV_ITEMS = [
 ] as const;
 
 export type NavItem = (typeof NAV_ITEMS)[number];
+
+/** Served from `public/assets`. */
+export const RESUME_URL = "/assets/resume.pdf";

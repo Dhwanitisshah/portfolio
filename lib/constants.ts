@@ -70,11 +70,11 @@ export const SITE = {
 
 export const SOCIAL_LINKS = [
   { label: "Email", href: `mailto:${SITE.email}` },
-  { label: "GitHub", href: "https://github.com/Dhwanitisshah" },
   {
     label: "LinkedIn",
     href: "https://linkedin.com/in/dhwanit-shah-11b781291/",
   },
+  { label: "GitHub", href: "https://github.com/Dhwanitisshah" },
 ] as const;
 
 /**

@@ -1,43 +1,12 @@
-import { useEffect, useRef } from "react";
-
 import ProjectCard from "@/components/ProjectCard";
 import { PROJECTS } from "@/lib/projects";
+import { useReveal } from "@/lib/useReveal";
 
 /** Delay added per card so they reveal in sequence rather than all at once. */
 const STAGGER_MS = 100;
 
 export default function Projects() {
-  const itemRefs = useRef<Array<HTMLLIElement | null>>([]);
-
-  // The reveal is a class toggle rather than React state: it touches only the
-  // DOM, so no card re-renders as the list scrolls into view.
-  useEffect(() => {
-    const items = itemRefs.current.filter(
-      (el): el is HTMLLIElement => el !== null,
-    );
-
-    // Without IntersectionObserver, show everything rather than nothing.
-    if (typeof IntersectionObserver === "undefined") {
-      for (const el of items) el.classList.add("is-visible");
-      return;
-    }
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        for (const entry of entries) {
-          if (!entry.isIntersecting) continue;
-          entry.target.classList.add("is-visible");
-          // Reveal is one-way; stop watching once it has fired.
-          observer.unobserve(entry.target);
-        }
-      },
-      { threshold: 0.15, rootMargin: "0px 0px -8% 0px" },
-    );
-
-    for (const el of items) observer.observe(el);
-
-    return () => observer.disconnect();
-  }, []);
+  const register = useReveal();
 
   return (
     <section id="projects" className="scroll-mt-16 py-20">
@@ -55,9 +24,9 @@ export default function Projects() {
             {PROJECTS.map((project, index) => (
               <li
                 key={project.slug}
-                ref={(el) => {
-                  itemRefs.current[index] = el;
-                }}
+                ref={register}
+                // The delay sits here, not on the card, so it never holds up
+                // the card's own hover transition.
                 style={{ transitionDelay: `${index * STAGGER_MS}ms` }}
                 className="reveal"
               >

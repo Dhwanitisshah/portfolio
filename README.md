@@ -38,8 +38,10 @@ Open http://localhost:3000.
 ## Project structure
 
 ```
-components/     Reusable UI (Header, Footer, Button, Hero, Projects, ProjectCard)
-lib/            constants.ts (tokens, metadata, nav), projects.ts, fonts.ts, utils.ts
+components/     Reusable UI (Header, Footer, Button, Hero, About, Projects,
+                ProjectCard, Skills)
+lib/            constants.ts (tokens, metadata, nav), projects.ts, skills.ts,
+                useReveal.ts, fonts.ts, utils.ts
 pages/          Routes (Pages Router); _app.tsx holds the global chrome
 public/assets/  Images and downloadable files
 styles/         globals.css — base styles only
@@ -88,8 +90,12 @@ glows.
 ### Motion
 
 Deliberately minimal: 150ms colour transitions on interactive elements, and a
-one-way scroll reveal on the project cards (fade + 16px rise, 100ms stagger)
-driven by `IntersectionObserver`. Everything collapses under
+one-way scroll reveal on each section and on the project cards (fade + 16px
+rise, with a 100ms stagger across the cards) driven by `IntersectionObserver`
+via the `useReveal` hook. The reveal transform is applied to a wrapper *inside*
+each section, never to the `section` itself — the section is the scroll anchor
+for its nav link, and a transform on it shifts where that link lands.
+Everything collapses under
 `prefers-reduced-motion: reduce`; the `.reveal` class is unhidden by a
 `<noscript>` rule in `_document.tsx` so the cards are never invisible without
 JS.
@@ -106,10 +112,10 @@ Set `NEXT_PUBLIC_SITE_URL` to the production origin so `SITE.url` is correct.
 - [x] **Phase 0** — Foundation: theme, tokens, Header/Footer/Button, placeholder page
 - [x] **Phase 1** — Hero landing
 - [x] **Phase 2** — Projects
-- [ ] **Phase 3** — Skills
-- [ ] **Phase 4** — Contact
+- [x] **Phase 3** — About, Skills, Contact
 
 ## TODO
 
-- Nav items point at on-page sections (`/#about`, …) that later phases add. If
-  those become standalone routes instead, only the `href` values change.
+- `/contact` (a standalone page with an inert form) and the `#contact` section
+  on the home page now overlap. Only the footer links to `/contact`; decide
+  whether to keep both or drop the page.

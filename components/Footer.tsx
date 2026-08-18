@@ -6,10 +6,7 @@ export default function Footer() {
   const year = new Date().getFullYear();
 
   return (
-    <footer
-      id="contact"
-      className="scroll-mt-16 border-t border-border bg-background"
-    >
+    <footer className="border-t border-border bg-background">
       <div className="mx-auto flex max-w-content flex-col gap-4 px-5 py-10 sm:flex-row sm:items-center sm:justify-between sm:px-8">
         <p className="text-sm text-muted">
           &copy; {year} {SITE.name}

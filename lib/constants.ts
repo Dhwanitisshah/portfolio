@@ -24,8 +24,15 @@ export const FONTS = {
 export const SITE = {
   name: "Dhwanit's Dev Quest",
   title: "DHWANIT'S DEV QUEST",
+  tagline: "CS Student | Full-Stack Builder | SIH'24 Winner",
   description: "A 90s arcade-flavoured portfolio by Dhwanit Shah.",
   author: "Dhwanit Shah",
 } as const;
+
+/**
+ * Served from /public/assets. Drop the PDF at
+ * public/assets/resume.pdf for the "VIEW RESUME" button to resolve.
+ */
+export const RESUME_URL = "/assets/resume.pdf";
 
 export type ColorName = keyof typeof COLORS;

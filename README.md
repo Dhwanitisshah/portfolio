@@ -85,7 +85,13 @@ Zero-config on Vercel — push the repo and import it. For any Node host: `npm r
 ## Roadmap
 
 - [x] **Phase 0** — Foundation: theme, CRT/glitch effects, layout, placeholder hero
-- [ ] **Phase 1** — Landing / boot sequence
+- [x] **Phase 1** — Hero landing, stat badges, CTAs, animated starfield, page stubs
 - [ ] **Phase 2** — Projects ("Quests")
 - [ ] **Phase 3** — Skills tree
 - [ ] **Phase 4** — Contact
+
+## TODO
+
+- Add `public/assets/resume.pdf` — the hero's **VIEW RESUME** button points at
+  `/assets/resume.pdf` (see `RESUME_URL` in `lib/constants.ts`) and 404s until
+  the file is in place.

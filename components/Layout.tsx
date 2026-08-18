@@ -1,5 +1,6 @@
 import Head from "next/head";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import type { ReactNode } from "react";
 
 const NAV_LINKS = [
@@ -20,6 +21,8 @@ export default function Layout({
   title = "Dhwanit's Dev Quest",
   description = "A 90s arcade-flavoured portfolio by Dhwanit Shah.",
 }: LayoutProps) {
+  const { pathname } = useRouter();
+
   return (
     <>
       <Head>
@@ -36,26 +39,40 @@ export default function Layout({
 
       <div className="flex min-h-screen flex-col bg-dark text-content-primary">
         <header className="sticky top-0 z-50 border-b-2 border-neon-purple/40 bg-dark/85 backdrop-blur-sm">
-          <div className="mx-auto flex w-full max-w-6xl flex-wrap items-center justify-between gap-4 px-4 py-4 sm:px-6">
+          <div className="mx-auto flex h-[var(--header-h)] w-full max-w-6xl items-center justify-between gap-3 px-3 sm:gap-4 sm:px-6">
+            {/* Abbreviated below `sm` so the bar still fits a 320px screen. */}
             <Link
               href="/"
-              className="font-display text-[10px] leading-relaxed text-neon-pink transition-colors hover:text-neon-cyan sm:text-xs"
+              className="shrink-0 font-display text-[9px] leading-relaxed text-neon-pink transition-colors hover:text-neon-cyan sm:text-xs"
             >
-              &gt; DHWANIT.EXE
+              <span className="sm:hidden">&gt; DS.EXE</span>
+              <span className="hidden sm:inline">&gt; DHWANIT.EXE</span>
             </Link>
 
             <nav aria-label="Primary">
-              <ul className="flex flex-wrap items-center gap-4 sm:gap-6">
-                {NAV_LINKS.map((link) => (
-                  <li key={link.href}>
-                    <Link
-                      href={link.href}
-                      className="font-display text-[8px] tracking-wider text-content-secondary transition-colors hover:text-neon-cyan sm:text-[10px]"
-                    >
-                      {link.label}
-                    </Link>
-                  </li>
-                ))}
+              <ul className="flex items-center gap-2 sm:gap-6">
+                {NAV_LINKS.map((link) => {
+                  const isActive =
+                    link.href === "/"
+                      ? pathname === "/"
+                      : pathname.startsWith(link.href);
+
+                  return (
+                    <li key={link.href}>
+                      <Link
+                        href={link.href}
+                        aria-current={isActive ? "page" : undefined}
+                        className={`font-display text-[7px] tracking-wider transition-colors hover:text-neon-cyan sm:text-[10px] ${
+                          isActive
+                            ? "text-neon-cyan"
+                            : "text-content-secondary"
+                        }`}
+                      >
+                        {link.label}
+                      </Link>
+                    </li>
+                  );
+                })}
               </ul>
             </nav>
           </div>

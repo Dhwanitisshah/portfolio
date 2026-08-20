@@ -15,6 +15,8 @@ export type Project = {
   github: string;
   /** `null` when there is nothing deployed to link to. */
   demo: string | null;
+  /** Preview screenshot in `public/assets`; a placeholder shows until it exists. */
+  image?: string | null;
   status: ProjectStatus;
 };
 
@@ -34,6 +36,7 @@ export const PROJECTS: Project[] = [
     github: "https://github.com/Dhwanitisshah/setu-triage",
     demo: null,
     status: "Production",
+    image: "/assets/setu-preview.png",
   },
   {
     slug: "ledgerline",
@@ -49,6 +52,7 @@ export const PROJECTS: Project[] = [
     github: "https://github.com/Dhwanitisshah/ledgerline",
     demo: null,
     status: "In Progress",
+    image: "/assets/ledgerline-preview.png",
   },
   {
     slug: "cv-interpretability",
@@ -66,6 +70,7 @@ export const PROJECTS: Project[] = [
       "https://github.com/Dhwanitisshah/Interpreting-MobileNetV3-Small-on-CIFAR-10",
     demo: null,
     status: "Research Paper in Progress",
+    image: "/assets/cv-preview.png",
   },
   {
     slug: "fake-news-detector",
@@ -81,5 +86,6 @@ export const PROJECTS: Project[] = [
     github: "https://github.com/Dhwanitisshah/FAKE-NEWS-DETECTOR",
     demo: "https://fake-news-detector.streamlit.app",
     status: "Deployed",
+    image: "/assets/fakenews-preview.png",
   },
 ];

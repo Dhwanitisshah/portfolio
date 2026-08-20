@@ -35,9 +35,11 @@ export default function About() {
             <div className="flex flex-col gap-5 md:col-span-3">
               <p className="text-base leading-[1.8] text-muted">
                 I’m a third-year B.Tech Computer Science &amp; Business Systems
-                student at Bharati Vidyapeeth (DU) College of Engineering, Pune
-                — currently serving as CIO at GreenFlag and interning at
-                D.R.E.A.M. Labs.
+                student at Bharati Vidyapeeth (DU) College of Engineering, Pune.
+                I currently serve as CIO at GreenFlag — an India-first dating
+                startup focused on verified profiles and intentional connections
+                — where I lead all technical architecture and engineering
+                decisions. I’m also interning at D.R.E.A.M. Labs.
               </p>
               <p className="text-base leading-[1.8] text-muted">
                 I build across the full stack: production web apps, systems

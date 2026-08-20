@@ -1,8 +1,13 @@
+import fs from "node:fs";
+import path from "node:path";
+
 import About from "@/components/About";
+import Experience from "@/components/Experience";
 import Hero from "@/components/Hero";
 import Projects from "@/components/Projects";
 import Skills from "@/components/Skills";
 import { SOCIAL_LINKS } from "@/lib/constants";
+import { PROJECTS, type Project } from "@/lib/projects";
 import { useReveal } from "@/lib/useReveal";
 
 /** Hairline between sections, aligned to the page container. */
@@ -22,7 +27,7 @@ function displayHref(href: string) {
     .replace(/\/$/, "");
 }
 
-export default function Home() {
+export default function Home({ projects }: { projects: Project[] }) {
   const register = useReveal();
 
   return (
@@ -33,7 +38,10 @@ export default function Home() {
       <About />
       <SectionDivider />
 
-      <Projects />
+      <Experience />
+      <SectionDivider />
+
+      <Projects projects={projects} />
       <SectionDivider />
 
       <Skills />
@@ -91,4 +99,22 @@ export default function Home() {
       </section>
     </>
   );
+}
+
+/**
+ * Resolve preview images against `public/` at build time. A project whose
+ * screenshot has not been added yet renders the placeholder without the
+ * browser first requesting a file that 404s and then reflowing the card.
+ */
+export function getStaticProps() {
+  const projects: Project[] = PROJECTS.map((project) => ({
+    ...project,
+    image:
+      project.image &&
+      fs.existsSync(path.join(process.cwd(), "public", project.image))
+        ? project.image
+        : null,
+  }));
+
+  return { props: { projects } };
 }

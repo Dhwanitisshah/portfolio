@@ -1,11 +1,11 @@
 import ProjectCard from "@/components/ProjectCard";
-import { PROJECTS } from "@/lib/projects";
+import type { Project } from "@/lib/projects";
 import { useReveal } from "@/lib/useReveal";
 
 /** Delay added per card so they reveal in sequence rather than all at once. */
 const STAGGER_MS = 100;
 
-export default function Projects() {
+export default function Projects({ projects }: { projects: Project[] }) {
   const register = useReveal();
 
   return (
@@ -21,7 +21,7 @@ export default function Projects() {
           </h2>
 
           <ul className="mt-10 flex flex-col gap-5">
-            {PROJECTS.map((project, index) => (
+            {projects.map((project, index) => (
               <li
                 key={project.slug}
                 ref={register}

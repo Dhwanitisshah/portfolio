@@ -38,10 +38,10 @@ Open http://localhost:3000.
 ## Project structure
 
 ```
-components/     Reusable UI (Header, Footer, Button, Hero, About, Projects,
-                ProjectCard, Skills, ScrollToTop)
+components/     Reusable UI (Header, Footer, Button, Hero, About, Experience,
+                Projects, ProjectCard, Skills, ScrollToTop)
 lib/            constants.ts (tokens, metadata, nav), projects.ts, skills.ts,
-                useReveal.ts, fonts.ts, utils.ts
+                experience.ts, useReveal.ts, fonts.ts, utils.ts
 pages/          Routes (Pages Router); _app.tsx holds the global chrome
 public/         robots.txt, sitemap.xml
 public/assets/  resume.pdf and other downloads
@@ -110,6 +110,15 @@ Everything collapses under
 `<noscript>` rule in `_document.tsx` so the cards are never invisible without
 JS.
 
+## Project preview images
+
+Each project in `lib/projects.ts` names a screenshot under `public/assets`.
+`getStaticProps` in `pages/index.tsx` checks the filesystem at build time and
+drops the reference when the file is absent, so a card with no screenshot
+renders the `[Screenshot coming soon]` placeholder — the browser never requests
+a file that 404s and then reflows the card. Drop the image in and rebuild to
+show it.
+
 ## Deployment
 
 Zero-config on Vercel — push the repo and import it. For any Node host:
@@ -128,3 +137,4 @@ them alongside a domain change.
 - [x] **Phase 2** — Projects
 - [x] **Phase 3** — About, Skills, Contact
 - [x] **Phase 4** — SEO metadata, scroll spy, footer, scroll-to-top
+- [x] **Phase 5** — Experience timeline, project image slots

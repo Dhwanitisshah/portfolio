@@ -43,7 +43,7 @@ components/     Reusable UI (Header, Footer, Button, Hero, About, Experience,
 lib/            constants.ts (tokens, metadata, nav), projects.ts, skills.ts,
                 experience.ts, useReveal.ts, fonts.ts, utils.ts
 pages/          Routes (Pages Router); _app.tsx holds the global chrome
-public/         robots.txt, sitemap.xml
+public/         favicon.svg, robots.txt, sitemap.xml
 public/assets/  resume.pdf and other downloads
 styles/         globals.css — base styles only
 ```

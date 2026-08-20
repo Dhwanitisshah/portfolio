@@ -4,6 +4,9 @@ export default function Document() {
   return (
     <Html lang="en">
       <Head>
+        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+        <link rel="alternate icon" href="/favicon.svg" />
+
         {/* Scroll-reveal starts hidden and is shown by IntersectionObserver.
             With JS off that never runs, so unhide it up front. */}
         <noscript>

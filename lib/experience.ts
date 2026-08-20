@@ -9,18 +9,7 @@ export type ExperienceEntry = {
 };
 
 export const EXPERIENCE: ExperienceEntry[] = [
-  {
-    role: "Chief Information Officer (CIO)",
-    company: "GreenFlag",
-    companyDescription:
-      "India-first dating app focused on verified profiles and intentional connections",
-    period: "Jul 2026 – Present",
-    type: "Full-time",
-    bullets: [
-      "Lead all technical decisions — architecture, engineering roadmap, DPDP Act compliance, and AI safety layers",
-      "Stack: NestJS backend, React Native/Expo client, Supabase",
-    ],
-  },
+  
   {
     role: "Research & Engineering Intern",
     company: "NTPC Limited",
@@ -43,4 +32,16 @@ export const EXPERIENCE: ExperienceEntry[] = [
       "Reframed a product spec into SiteSignal — a web presence intelligence platform",
     ],
   },
+  {
+    role: "Chief Information Officer (CIO)",
+    company: "GreenFlag",
+    companyDescription:
+      "India-first dating app focused on verified profiles and intentional connections",
+    period: "Jul 2026 – Present",
+    type: "Full-time",
+    bullets: [
+      "Lead all technical decisions — architecture, engineering roadmap, DPDP Act compliance, and AI safety layers",
+      "Stack: NestJS backend, React Native/Expo client, Supabase",
+    ],
+  }
 ];

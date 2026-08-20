@@ -9,7 +9,6 @@ export type ExperienceEntry = {
 };
 
 export const EXPERIENCE: ExperienceEntry[] = [
-  
   {
     role: "Research & Engineering Intern",
     company: "NTPC Limited",
@@ -43,5 +42,5 @@ export const EXPERIENCE: ExperienceEntry[] = [
       "Lead all technical decisions — architecture, engineering roadmap, DPDP Act compliance, and AI safety layers",
       "Stack: NestJS backend, React Native/Expo client, Supabase",
     ],
-  }
+  },
 ];

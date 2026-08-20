@@ -1,10 +1,8 @@
-import Head from "next/head";
-
 import About from "@/components/About";
 import Hero from "@/components/Hero";
 import Projects from "@/components/Projects";
 import Skills from "@/components/Skills";
-import { SITE, SOCIAL_LINKS } from "@/lib/constants";
+import { SOCIAL_LINKS } from "@/lib/constants";
 import { useReveal } from "@/lib/useReveal";
 
 /** Hairline between sections, aligned to the page container. */
@@ -29,11 +27,6 @@ export default function Home() {
 
   return (
     <>
-      <Head>
-        <title>{SITE.title}</title>
-        <meta name="description" content={SITE.description} />
-      </Head>
-
       <Hero />
       <SectionDivider />
 

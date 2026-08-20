@@ -39,16 +39,26 @@ Open http://localhost:3000.
 
 ```
 components/     Reusable UI (Header, Footer, Button, Hero, About, Projects,
-                ProjectCard, Skills)
+                ProjectCard, Skills, ScrollToTop)
 lib/            constants.ts (tokens, metadata, nav), projects.ts, skills.ts,
                 useReveal.ts, fonts.ts, utils.ts
 pages/          Routes (Pages Router); _app.tsx holds the global chrome
-public/assets/  Images and downloadable files
+public/         robots.txt, sitemap.xml
+public/assets/  resume.pdf and other downloads
 styles/         globals.css — base styles only
 ```
 
-`Header` and `Footer` are rendered once in `pages/_app.tsx`, so every page picks
-them up automatically.
+`Header`, `Footer` and `ScrollToTop` are rendered once in `pages/_app.tsx`, so
+every page picks them up automatically. Site-wide metadata (title, description,
+Open Graph, Twitter card, canonical) also lives there via `next/head` rather
+than in `_document.tsx`, which Next warns against for `<title>`; it is all
+derived from `SITE` in `lib/constants.ts`.
+
+The header's active nav state is a scroll spy. A plain visibility threshold does
+not work — Projects is several viewports tall and can never be "50% visible" —
+so the observer root is shrunk to a band just below the sticky header, and
+whichever section occupies that band wins. Reaching the bottom of the page
+activates the last section, which is otherwise too short to reach the band.
 
 ## Design system
 
@@ -105,7 +115,11 @@ JS.
 Zero-config on Vercel — push the repo and import it. For any Node host:
 `npm run build && npm start` (respects `PORT`). Requires Node >= 20.9.
 
-Set `NEXT_PUBLIC_SITE_URL` to the production origin so `SITE.url` is correct.
+`SITE.url` defaults to the Vercel deployment; set `NEXT_PUBLIC_SITE_URL` to
+override it. It feeds the canonical link and the Open Graph tags.
+
+`public/robots.txt` and `public/sitemap.xml` hard-code that same origin — update
+them alongside a domain change.
 
 ## Roadmap
 
@@ -113,3 +127,4 @@ Set `NEXT_PUBLIC_SITE_URL` to the production origin so `SITE.url` is correct.
 - [x] **Phase 1** — Hero landing
 - [x] **Phase 2** — Projects
 - [x] **Phase 3** — About, Skills, Contact
+- [x] **Phase 4** — SEO metadata, scroll spy, footer, scroll-to-top

@@ -27,7 +27,8 @@ export default function Hero() {
             B.Tech Computer Science student at Bharati Vidyapeeth (DU), Pune. I
             build full-stack products across web, ML, and systems — with a focus
             on clean architecture and real-world impact. Currently serving as
-            CIO at GreenFlag and open to internship and freelance opportunities.
+            CIO at GreenFlag and open to internship opportunities and
+            early-stage team collaborations.
           </p>
 
           <div className="mt-10 flex flex-col gap-4 sm:flex-row">

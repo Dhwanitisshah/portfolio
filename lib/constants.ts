@@ -59,11 +59,13 @@ export const SITE = {
   shortName: "Dhwanit",
   /** Monogram fallback for very small viewports. */
   monogram: "DS",
-  title: "Dhwanit Shah — Developer",
+  title: "Dhwanit Shah — Full-Stack Engineer & CS Student",
   description:
-    "Developer working with startup founders and early-stage teams to design, build and ship products.",
-  /** Set NEXT_PUBLIC_SITE_URL in the deployment environment. */
-  url: process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000",
+    "B.Tech CS student at Bharati Vidyapeeth (DU), Pune. Full-stack engineer building across web, ML, and systems. SIH'24 Winner. Open to internship and freelance opportunities.",
+  /** Override with NEXT_PUBLIC_SITE_URL if the deployment moves. */
+  url:
+    process.env.NEXT_PUBLIC_SITE_URL ??
+    "https://portfolio-umber-seven-80.vercel.app",
   email: "dhwanitshah1309@gmail.com",
   locale: "en_US",
 } as const;

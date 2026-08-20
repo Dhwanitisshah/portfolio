@@ -5,43 +5,76 @@ import { useCallback, useEffect, useState } from "react";
 import { NAV_ITEMS, SITE } from "@/lib/constants";
 import { cn } from "@/lib/utils";
 
-/**
- * True when a nav href points at the page (and section) currently in view.
- * Handles both `/#section` links and plain routes, so moving sections onto
- * their own pages later needs no change here.
- */
-function isActive(href: string, pathname: string, hash: string) {
-  const [rawPath, fragment] = href.split("#");
-  const path = rawPath.replace(/\/$/, "") || "/";
-
-  if (fragment) {
-    return pathname === path && hash === `#${fragment}`;
-  }
-
-  return pathname === path;
-}
+/** The section each nav item points at, e.g. "/#about" -> "about". */
+const SECTION_IDS = NAV_ITEMS.map((item) => item.href.split("#")[1]).filter(
+  Boolean,
+);
 
 export default function Header() {
   const router = useRouter();
-  const [hash, setHash] = useState("");
+  const [activeId, setActiveId] = useState<string | null>(null);
   const [menuOpen, setMenuOpen] = useState(false);
 
-  // `router.asPath` keeps the hash, but not on the first client render, so
-  // read it from the browser and follow it from there.
+  // Scroll spy. A plain visibility threshold does not work here: Projects is
+  // several viewports tall and can never be "50% visible". Instead the root is
+  // shrunk to a band running from just under the sticky header down to ~45% of
+  // the viewport, and whichever section occupies that band is the active one.
   useEffect(() => {
-    const syncHash = () => setHash(window.location.hash);
+    if (typeof IntersectionObserver === "undefined") return;
 
-    syncHash();
-    window.addEventListener("hashchange", syncHash);
-    router.events.on("routeChangeComplete", syncHash);
-    router.events.on("hashChangeComplete", syncHash);
+    const sections = SECTION_IDS.map((id) => document.getElementById(id)).filter(
+      (el): el is HTMLElement => el !== null,
+    );
+    if (sections.length === 0) return;
+
+    const inBand = new Set<string>();
+
+    const atPageBottom = () =>
+      window.innerHeight + window.scrollY >=
+      document.documentElement.scrollHeight - 2;
+
+    const update = () => {
+      // The last section is too short to ever reach the band once the page has
+      // bottomed out, so treat hitting the bottom as arriving at it.
+      if (atPageBottom()) {
+        setActiveId(SECTION_IDS[SECTION_IDS.length - 1]);
+        return;
+      }
+      // Topmost section in document order wins if the band spans two.
+      setActiveId(SECTION_IDS.find((id) => inBand.has(id)) ?? null);
+    };
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (entry.isIntersecting) inBand.add(entry.target.id);
+          else inBand.delete(entry.target.id);
+        }
+        update();
+      },
+      { rootMargin: "-64px 0px -55% 0px", threshold: 0 },
+    );
+
+    for (const section of sections) observer.observe(section);
+
+    // The observer stays quiet while scrolling within one section, so the
+    // bottom-of-page check needs its own listener, coalesced to one per frame.
+    let frame = 0;
+    const onScroll = () => {
+      if (frame) return;
+      frame = window.requestAnimationFrame(() => {
+        frame = 0;
+        update();
+      });
+    };
+    window.addEventListener("scroll", onScroll, { passive: true });
 
     return () => {
-      window.removeEventListener("hashchange", syncHash);
-      router.events.off("routeChangeComplete", syncHash);
-      router.events.off("hashChangeComplete", syncHash);
+      observer.disconnect();
+      window.removeEventListener("scroll", onScroll);
+      if (frame) window.cancelAnimationFrame(frame);
     };
-  }, [router.events]);
+  }, []);
 
   const closeMenu = useCallback(() => setMenuOpen(false), []);
 
@@ -77,16 +110,20 @@ export default function Header() {
         <nav aria-label="Main" className="hidden md:block">
           <ul className="flex items-center gap-8">
             {NAV_ITEMS.map((item) => {
-              const active = isActive(item.href, router.pathname, hash);
+              const active = activeId === item.href.split("#")[1];
 
               return (
                 <li key={item.href}>
                   <Link
                     href={item.href}
-                    aria-current={active ? "page" : undefined}
+                    aria-current={active ? "true" : undefined}
                     className={cn(
-                      "text-sm transition-colors duration-150 hover:text-sage",
-                      active ? "font-medium text-sage" : "text-muted",
+                      // The border is always present so the active state is a
+                      // colour change only, never a shift in layout.
+                      "border-b-2 pb-1 text-sm transition-colors duration-200 hover:text-sage",
+                      active
+                        ? "border-sage text-sage"
+                        : "border-transparent text-muted",
                     )}
                   >
                     {item.label}
@@ -119,17 +156,17 @@ export default function Header() {
         >
           <ul className="mx-auto max-w-content px-5 py-2 sm:px-8">
             {NAV_ITEMS.map((item) => {
-              const active = isActive(item.href, router.pathname, hash);
+              const active = activeId === item.href.split("#")[1];
 
               return (
                 <li key={item.href}>
                   <Link
                     href={item.href}
                     onClick={closeMenu}
-                    aria-current={active ? "page" : undefined}
+                    aria-current={active ? "true" : undefined}
                     className={cn(
-                      "block rounded-md px-2 py-3 text-base transition-colors duration-150 hover:bg-hover hover:text-sage",
-                      active ? "font-medium text-sage" : "text-muted",
+                      "block rounded-md px-2 py-3 text-base transition-colors duration-200 hover:bg-hover hover:text-sage",
+                      active ? "text-sage" : "text-muted",
                     )}
                   >
                     {item.label}

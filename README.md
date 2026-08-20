@@ -113,9 +113,3 @@ Set `NEXT_PUBLIC_SITE_URL` to the production origin so `SITE.url` is correct.
 - [x] **Phase 1** — Hero landing
 - [x] **Phase 2** — Projects
 - [x] **Phase 3** — About, Skills, Contact
-
-## TODO
-
-- `/contact` (a standalone page with an inert form) and the `#contact` section
-  on the home page now overlap. Only the footer links to `/contact`; decide
-  whether to keep both or drop the page.

@@ -16,7 +16,7 @@ export default function Footer() {
           <ul className="flex flex-wrap items-center gap-x-6 gap-y-2">
             <li>
               <Link
-                href="/contact"
+                href="/#contact"
                 className="text-sm text-muted transition-colors duration-150 hover:text-sage"
               >
                 Contact
